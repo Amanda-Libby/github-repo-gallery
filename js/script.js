@@ -4,6 +4,8 @@ const username = "Amanda-Libby";
 const repoList = document.querySelector(".repo-list");
 const selectRepo = document.querySelector(".repos");
 const repoData = document.querySelector(".repo-data");
+const backToRepoButton = document.querySelector(".view-repos");
+const filterInput = document.querySelector(".filter-repos");
 
 const gitUserInfo = async function () {
     const userInfo = await fetch(`https://api.github.com/users/${username}`);
@@ -47,10 +49,10 @@ const displayRepos = function (repos) {
     }
 };
 
-repoList = document.addEventListener("click", function (e) {
+repoList.addEventListener("click", function (e) {
     if (e.target.matches("h3")) {
         const repoName = e.target.innerText;
-        // console.log(repoName);
+        console.log(repoName);
         getRepoInfo(repoName);
     };
 });
@@ -77,7 +79,7 @@ const displayRepoInfo = function (repoInfo, languages) {
     repoData.innerHTML = "";
 
     const div = document.createElement("div");
-    
+
     /*
     div.innerHTML = `
     <h3>Name: ${}</h3>
@@ -90,4 +92,14 @@ const displayRepoInfo = function (repoInfo, languages) {
     repoData.classList.remove("hide");
     allReposContainer.classList.add("hide");
     */
+    backToRepoButton.classList.remove("hide");
 };
+
+backToRepoButton = document.addEventListener("click", function () {
+    selectRepo.classList.remove("hide");
+    displayRepoInfo.classList.add("hide");
+    backToRepoButton.classList.add("hide");
+
+});
+
+// write down what all the functions do since they have similar names, I'll have to go back through the project to find this.
