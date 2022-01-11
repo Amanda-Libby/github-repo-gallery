@@ -41,6 +41,7 @@ const gitRepos = async function () {
 };
 
 const displayRepos = function (repos) {
+    filterInput();
     for (const repo of repos) {
         const repoItem = document.createElement("li");
         repoItem.classList.add("repo");
@@ -49,7 +50,7 @@ const displayRepos = function (repos) {
     }
 };
 
-repoList.addEventListener("click", function (e) {
+repoList.addEventListener("click", function (e) { // I'm attaching the event listener to the repoList variable since it already has a value at the top of the page.
     if (e.target.matches("h3")) {
         const repoName = e.target.innerText;
         console.log(repoName);
@@ -58,11 +59,11 @@ repoList.addEventListener("click", function (e) {
 });
 
 const getRepoInfo = async function (repoName) {
-    const fetchRepo = await fetch(""); // look up how to find the data to fetch in the previous lessons.
+    const fetchRepo = await fetch(`https://api.github.com/repos/${username}/${repoName}`); 
     const repoInfo = await fetchRepo.json();
     console.log(repoInfo);
     // fetch data from languages
-    const fetchLanguages = await fetch(""); // look up how to find the data to fetch in the previous lessons.
+    const fetchLanguages = await fetch(repoInfo.languages_url); 
     const languageData = await fetchLanguages.json();
     console.log(languageData);
 
@@ -77,29 +78,44 @@ const getRepoInfo = async function (repoName) {
 
 const displayRepoInfo = function (repoInfo, languages) {
     repoData.innerHTML = "";
-
     const div = document.createElement("div");
 
-    /*
     div.innerHTML = `
-    <h3>Name: ${}</h3>
-        <p>Description: ${}</p>
-        <p>Default Branch: ${}</p>
+    <h3>Name: ${repoInfo.name}</h3>
+        <p>Description: ${repoInfo.description}</p>
+        <p>Default Branch: ${repoInfo.default_branch}</p>
         <p>Languages: ${languages.join(", ")}</p>
-    <a class="visit" href="${}" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a>
+    <a class="visit" href="${repoInfo.html_url}" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a>
     `;
     repoData.append(div);
     repoData.classList.remove("hide");
     allReposContainer.classList.add("hide");
-    */
+    
     backToRepoButton.classList.remove("hide");
 };
 
-backToRepoButton = document.addEventListener("click", function () {
+backToRepoButton.addEventListener("click", function () {
     selectRepo.classList.remove("hide");
     displayRepoInfo.classList.add("hide");
     backToRepoButton.classList.add("hide");
+});
 
+// Dynamic search
+filterInput.addEventListener("input", function (e) {
+    const searchText = e.target.value; // capture the value of the search text
+    console.log(searchText);
+    const repos = document.querySelectorAll(".repo");
+    const searchLowerText = searchText.toLowerCase(); // lowercase value of the search text
+
+    for (const repo of repos) {
+        const repoLowerCase = repo.innerText.toLowerCase(); // lowercase value of the innerText. of each repo
+        if (repoLowerCase.includes(searchLowerText)) { // if lowercase value of the innerText of the repo includes the lowercase value of the search text
+            repo.classList.remove("hide");
+        } else {
+            repo.classList.add("hide");
+        }
+    };
 });
 
 // write down what all the functions do since they have similar names, I'll have to go back through the project to find this.
+// look at the api video to see if I understand how to find the website, endpoints and parameters I need
