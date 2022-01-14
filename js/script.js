@@ -2,9 +2,9 @@
 const overview = document.querySelector(".overview");
 const username = "Amanda-Libby"; 
 const repoList = document.querySelector(".repo-list");
-const selectRepo = document.querySelector(".repos");
+const allReposContainer = document.querySelector(".repos");
 const repoData = document.querySelector(".repo-data");
-const backToRepoButton = document.querySelector(".view-repos");
+const viewReposButton = document.querySelector(".view-repos");
 const filterInput = document.querySelector(".filter-repos");
 
 const gitUserInfo = async function () {
@@ -30,7 +30,7 @@ const displayUserInfo = function (data) {
         </div>
     `;
     overview.append(div);
-    gitRepos();
+    gitRepos(username);
 };
 
 const gitRepos = async function () {
@@ -41,7 +41,7 @@ const gitRepos = async function () {
 };
 
 const displayRepos = function (repos) {
-    filterInput();
+    // filterInput.classList.remove("hide");
     for (const repo of repos) {
         const repoItem = document.createElement("li");
         repoItem.classList.add("repo");
@@ -62,6 +62,7 @@ const getRepoInfo = async function (repoName) {
     const fetchRepo = await fetch(`https://api.github.com/repos/${username}/${repoName}`); 
     const repoInfo = await fetchRepo.json();
     console.log(repoInfo);
+
     // fetch data from languages
     const fetchLanguages = await fetch(repoInfo.languages_url); 
     const languageData = await fetchLanguages.json();
@@ -77,27 +78,25 @@ const getRepoInfo = async function (repoName) {
 };
 
 const displayRepoInfo = function (repoInfo, languages) {
+    viewReposButton.classList.remove("hide");
     repoData.innerHTML = "";
+    repoData.classList.remove("hide");
+    allReposContainer.classList.add("hide");
     const div = document.createElement("div");
-
     div.innerHTML = `
-    <h3>Name: ${repoInfo.name}</h3>
+        <h3>Name: ${repoInfo.name}</h3>
         <p>Description: ${repoInfo.description}</p>
         <p>Default Branch: ${repoInfo.default_branch}</p>
         <p>Languages: ${languages.join(", ")}</p>
     <a class="visit" href="${repoInfo.html_url}" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a>
     `;
     repoData.append(div);
-    repoData.classList.remove("hide");
-    allReposContainer.classList.add("hide");
-    
-    backToRepoButton.classList.remove("hide");
 };
 
-backToRepoButton.addEventListener("click", function () {
-    selectRepo.classList.remove("hide");
-    displayRepoInfo.classList.add("hide");
-    backToRepoButton.classList.add("hide");
+viewReposButton.addEventListener("click", function () {
+    allReposContainer.classList.remove("hide");
+    repoData.classList.add("hide");
+    viewReposButton.classList.add("hide");
 });
 
 // Dynamic search
