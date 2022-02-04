@@ -33,7 +33,7 @@ const displayUserInfo = function (data) {
     gitRepos(username);
 };
 
-const gitRepos = async function () {
+const gitRepos = async function (username) {
     const fetchRepos = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
     const repoData = await fetchRepos.json();
     console.log(repoData);
@@ -41,7 +41,7 @@ const gitRepos = async function () {
 };
 
 const displayRepos = function (repos) {
-    // filterInput.classList.remove("hide");
+    filterInput.classList.remove("hide");
     for (const repo of repos) {
         const repoItem = document.createElement("li");
         repoItem.classList.add("repo");
