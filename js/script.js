@@ -1,4 +1,3 @@
-// this is where your profile info will appear
 const overview = document.querySelector(".overview");
 const username = "Amanda-Libby"; 
 const repoList = document.querySelector(".repo-list");
@@ -36,7 +35,6 @@ const displayUserInfo = function (data) {
 const gitRepos = async function (username) {
     const fetchRepos = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
     const repoData = await fetchRepos.json();
-    console.log(repoData);
     displayRepos(repoData);
 };
 
@@ -53,7 +51,6 @@ const displayRepos = function (repos) {
 repoList.addEventListener("click", function (e) { // I'm attaching the event listener to the repoList variable since it already has a value at the top of the page.
     if (e.target.matches("h3")) {
         const repoName = e.target.innerText;
-        console.log(repoName);
         getRepoInfo(repoName);
     };
 });
@@ -61,19 +58,17 @@ repoList.addEventListener("click", function (e) { // I'm attaching the event lis
 const getRepoInfo = async function (repoName) {
     const fetchRepo = await fetch(`https://api.github.com/repos/${username}/${repoName}`); 
     const repoInfo = await fetchRepo.json();
-    console.log(repoInfo);
 
     // fetch data from languages
     const fetchLanguages = await fetch(repoInfo.languages_url); 
     const languageData = await fetchLanguages.json();
-    console.log(languageData);
 
     // make a list of languages
     const languages = [];
     for (const language in languageData) {
         languages.push(language);
     };
-    console.log(languages);
+    
     displayRepoInfo(repoInfo, languages);
 };
 
@@ -88,7 +83,7 @@ const displayRepoInfo = function (repoInfo, languages) {
         <p>Description: ${repoInfo.description}</p>
         <p>Default Branch: ${repoInfo.default_branch}</p>
         <p>Languages: ${languages.join(", ")}</p>
-    <a class="visit" href="${repoInfo.html_url}" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a>
+        <a class="visit" href="${repoInfo.html_url}" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a>
     `;
     repoData.append(div);
 };
@@ -102,7 +97,6 @@ viewReposButton.addEventListener("click", function () {
 // Dynamic search
 filterInput.addEventListener("input", function (e) {
     const searchText = e.target.value; // capture the value of the search text
-    console.log(searchText);
     const repos = document.querySelectorAll(".repo");
     const searchLowerText = searchText.toLowerCase(); // lowercase value of the search text
 
@@ -113,7 +107,7 @@ filterInput.addEventListener("input", function (e) {
         } else {
             repo.classList.add("hide");
         }
-    };
+    }
 });
 
 // write down what all the functions do since they have similar names, I'll have to go back through the project to find this.
