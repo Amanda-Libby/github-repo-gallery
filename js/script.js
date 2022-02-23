@@ -109,6 +109,3 @@ filterInput.addEventListener("input", function (e) {
         }
     }
 });
-
-// write down what all the functions do since they have similar names, I'll have to go back through the project to find this.
-// look at the api video to see if I understand how to find the website, endpoints and parameters I need
