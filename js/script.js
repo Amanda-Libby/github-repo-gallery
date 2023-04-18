@@ -3,6 +3,7 @@ const overview = document.querySelector(".overview");
 const username = "Amanda-Libby";
 
 // go back through the courses to see how to do the javascript needed in this project.
+// do this tomorrow
 
 
 
