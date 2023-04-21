@@ -29,7 +29,7 @@ const displayUserInfo = function (data) {
     overview.append(div);
 }
 
-// add the data points I need in the div
+// add the data points I need in the div from the course
 
 
 
