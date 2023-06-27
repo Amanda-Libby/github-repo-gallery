@@ -7,7 +7,7 @@ const username = "Amanda-Libby";
 const gitUserInfo = async function () {
     const res = await fetch(`https://api.github.com/users/$(username)`);
     const data = await res.json()
-    console.log(data)
+    console.log("This is the data from the fetch", data)
     displayUserInfo(data)
 };
 gitUserInfo();
@@ -15,7 +15,7 @@ gitUserInfo();
 const displayUserInfo = function (data) {
     const div = document.createElement("div")
     div.classList.add("user-info")
-    div.innerHTML = `
+   /* div.innerHTML = `
         <figure>
             <img alt="user avatar" src=${} />
         </figure>
@@ -26,6 +26,7 @@ const displayUserInfo = function (data) {
             <p><strong>Number of public repos:</strong> ${}</p>
         </div> 
     `;
+    */
     overview.append(div);
 }
 
