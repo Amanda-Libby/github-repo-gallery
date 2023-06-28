@@ -1,11 +1,12 @@
 // where the profile information will appear
 const overview = document.querySelector(".overview");
 const username = "Amanda-Libby";
+const unorderList = document.querySelector("ul");
 
 // go back through the courses to see how to do the javascript needed in this project.
 
 const gitUserInfo = async function () {
-    const res = await fetch(`https://api.github.com/users/$(username)`);
+    const res = await fetch(`https://api.github.com/users/${username}`);
     const data = await res.json()
     console.log("This is the data from the fetch", data)
     displayUserInfo(data)
@@ -15,22 +16,21 @@ gitUserInfo();
 const displayUserInfo = function (data) {
     const div = document.createElement("div")
     div.classList.add("user-info")
-   /* div.innerHTML = `
+    div.innerHTML = `
         <figure>
-            <img alt="user avatar" src=${} />
+            <img alt="user avatar" src=${data.avatar_url} />
         </figure>
         <div>
-            <p><strong>Name:</strong> ${}</p>
-            <p><strong>Bio:</strong> ${}</p>
-            <p><strong>Location:</strong> ${}</p>
-            <p><strong>Number of public repos:</strong> ${}</p>
+            <p><strong>Name:</strong> ${data.name}</p>
+            <p><strong>Bio:</strong> ${data.bio}</p>
+            <p><strong>Location:</strong> ${data.location}</p>
+            <p><strong>Number of public repos:</strong> ${data.public_repos}</p>
         </div> 
     `;
-    */
     overview.append(div);
 }
 
-// add the data points I need in the div from the course
+
 
 
 
