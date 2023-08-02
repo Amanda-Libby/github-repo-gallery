@@ -28,12 +28,14 @@ const displayUserInfo = function (data) {
         </div> 
     `;
     overview.append(div);
+    fetchRepoFunction();
 }
 
 const fetchRepoFunction = async function () {
     const fetchRepo = await fetch("https://api.github.com/users/${username}/repos?sort=updated&per_page=100");
     const repoData = await fetchRepo.json();
     console.log(repoData);
+    displayRepos(repos);
 
 }
 
