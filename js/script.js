@@ -1,16 +1,17 @@
 // where the profile information will appear
 const overview = document.querySelector(".overview");
 const username = "Amanda-Libby";
-const unorderList = document.querySelector("ul");
+const repoList = document.querySelector(".repo-list");
 
 // go back through the courses to see how to do the javascript needed in this project.
 
 const gitUserInfo = async function () {
-    const res = await fetch(`https://api.github.com/users/${username}`);
-    const data = await res.json()
+    const userInfo = await fetch(`https://api.github.com/users/${username}`);
+    const data = await userInfo.json()
     console.log("This is the data from the fetch", data)
     displayUserInfo(data)
-};
+}; // function to fetch information from my github profile
+
 gitUserInfo();
 
 const displayUserInfo = function (data) {
@@ -29,15 +30,15 @@ const displayUserInfo = function (data) {
     `;
     overview.append(div);
     fetchRepoFunction();
-}
+}; // function to fetch my github user data
 
 const fetchRepoFunction = async function () {
     const fetchRepo = await fetch("https://api.github.com/users/${username}/repos?sort=updated&per_page=100");
     const repoData = await fetchRepo.json();
     console.log(repoData);
-    displayRepos(repos);
+    displayRepos(repoData);
 
-}
+}; // function to fetch my repos
 
 const displayRepos = function (repos) {
     for (const repo of repos) {
@@ -46,7 +47,8 @@ const displayRepos = function (repos) {
         repoItem.innerHTML = `<h3=${repo.name}</h3>`;
         repoList.append(repoItem);
     }
-}
+}; // function to display information about each repo
+
 // not sure about the first step in the Save and view your page section
 
 
