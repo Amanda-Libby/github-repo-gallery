@@ -2,6 +2,8 @@
 const overview = document.querySelector(".overview");
 const username = "Amanda-Libby";
 const repoList = document.querySelector(".repo-list");
+const repos = document.querySelector(".repos");
+const repoData = document.querySelector(".repo-data");
 
 // go back through the courses to see how to do the javascript needed in this project.
 
