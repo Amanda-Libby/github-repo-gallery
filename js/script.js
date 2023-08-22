@@ -51,7 +51,14 @@ const displayRepos = function (repos) {
     }
 }; // function to display information about each repo
 
-// not sure about the first step in the Save and view your page section
+repoList.addEventListener("click", function (e) {
+    if (e.target.matches("h3")) {
+        const repoName = e.target.innerText; // check this line
+        console.log(repoName);
+    }
+});
+
+
 
 
 
