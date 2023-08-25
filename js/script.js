@@ -54,9 +54,18 @@ const displayRepos = function (repos) {
 repoList.addEventListener("click", function (e) {
     if (e.target.matches("h3")) {
         const repoName = e.target.innerText; // check this line
-        console.log(repoName);
+        getRepoInfo(repoName);
+
     }
 });
+
+const getRepoInfo = async function (repoName) {
+    const fetchInfo = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
+    const repoInfo = await fetchInfo.json()
+    console.log(repoInfo);
+} // Function to get specific repo info
+
+// Ask slack about fetch requests and where to find the information about the url and the endpoints since I always have to look this up.
 
 
 
