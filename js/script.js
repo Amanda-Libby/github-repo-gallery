@@ -63,9 +63,13 @@ const getRepoInfo = async function (repoName) {
     const fetchInfo = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
     const repoInfo = await fetchInfo.json()
     console.log(repoInfo);
+
+    const fetchLanguages // this variable will fetch data from the languague_url property of my repoinfo. 
+    // Ask about this one too
 } // Function to get specific repo info
 
 // Ask slack about fetch requests and where to find the information about the url and the endpoints since I always have to look this up.
+
 
 
 
