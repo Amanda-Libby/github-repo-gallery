@@ -64,12 +64,21 @@ const getRepoInfo = async function (repoName) {
     const repoInfo = await fetchInfo.json()
     console.log(repoInfo);
 
-    const fetchLanguages // this variable will fetch data from the languague_url property of my repoinfo. 
-    // Ask about this one too
+    // Grab the languages
+    const fetchLanguages = await fetch(repoInfo.language_url);
+    const languageData = await fetchLanguages.json();
+    console.log(languageData);
+
+    // Make a list of languages
+    const languages = [];
+    for (let language in languageData) {
+        languages.push(language);
+    }
+    
 } // Function to get specific repo info
 
 // Ask slack about fetch requests and where to find the information about the url and the endpoints since I always have to look this up.
-
+// ask for screen shots for where to find the information for the fetch requests like where to find the url and where to find the end points that I need
 
 
 
