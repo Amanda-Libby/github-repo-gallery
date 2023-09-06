@@ -64,7 +64,7 @@ const getRepoInfo = async function (repoName) {
     const repoInfo = await fetchInfo.json()
     console.log(repoInfo);
 
-    // Grab the languages
+    // fetch the data for all the coding languages in every repo
     const fetchLanguages = await fetch(repoInfo.language_url);
     const languageData = await fetchLanguages.json();
     console.log(languageData);
@@ -74,8 +74,24 @@ const getRepoInfo = async function (repoName) {
     for (let language in languageData) {
         languages.push(language);
     }
+    console.log(languages);
     
-} // Function to get specific repo info
+}; // Function to get specific repo info
+
+const displayRepoInfo = function (repoInfo, languages) {
+    repoData.innerHTML = "";
+
+    const div = document.createElement("div");
+    div.innerHTML = `
+        <h3>Name: ${}</h3>
+        <p>Description: ${}</p>
+        <p>Default Branch: ${}</p>
+        <p>Languages: ${languages.join(", ")}</p>
+        <a class="visit" href="${}" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a>
+    `;
+}
+
+
 
 // Ask slack about fetch requests and where to find the information about the url and the endpoints since I always have to look this up.
 // ask for screen shots for where to find the information for the fetch requests like where to find the url and where to find the end points that I need
