@@ -2,8 +2,10 @@
 const overview = document.querySelector(".overview");
 const username = "Amanda-Libby";
 const repoList = document.querySelector(".repo-list");
-const repos = document.querySelector(".repos");
-const repoData = document.querySelector(".repo-data");
+const allReposContainer = document.querySelector(".repos"); // where all the repo information appears
+const repoData = document.querySelector(".repo-data"); // where the individual repo data is
+const viewReposButton = document.querySelector(".view-repos"); // back to repo gallery button
+const filterInput = document.querySelector(".filter-repos");
 
 // go back through the courses to see how to do the javascript needed in this project.
 
@@ -49,7 +51,8 @@ const displayRepos = function (repos) {
         repoItem.innerHTML = `<h3=${repo.name}</h3>`;
         repoList.append(repoItem);
     }
-}; // function to display information about each repo
+    filterInput.classList.remove("hide");
+}; // function to display information about each repo, this will display all of the repos
 
 repoList.addEventListener("click", function (e) {
     if (e.target.matches("h3")) {
@@ -75,21 +78,37 @@ const getRepoInfo = async function (repoName) {
         languages.push(language);
     }
     console.log(languages);
+
+    displayRepoInfo(repoInfo, languages);
     
 }; // Function to get specific repo info
 
 const displayRepoInfo = function (repoInfo, languages) {
     repoData.innerHTML = "";
 
+    repoData.classList.remove("hide"); // Unhide (show) the “repo-data” element.
+    allReposContainer.classList.add("hide"); // Hide the element with the class of “repos”.
+
     const div = document.createElement("div");
     div.innerHTML = `
-        <h3>Name: ${}</h3>
-        <p>Description: ${}</p>
-        <p>Default Branch: ${}</p>
+        <h3>Name: ${repoInfo.name}</h3>
+        <p>Description: ${repoInfo.description}</p>
+        <p>Default Branch: ${repoInfo.default_branch}</p>
         <p>Languages: ${languages.join(", ")}</p>
-        <a class="visit" href="${}" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a>
+        <a class="visit" href="${repoInfo.html_url}" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a>
     `;
-}
+    repoData.append(div) // Append the new div element to the section with a class of “repo-data”.
+
+    viewReposButton.classList.remove("hide");
+}; // Function to display the individual repo information
+
+
+viewReposButton.addEventListener("click", function () {
+    allReposContainer.classList.remove("hide");
+    repoData.classList.add("hide");
+    viewReposButton.classList.add("hide");
+
+}); // a click event for what happens when you click the back to repo gallery button
 
 
 
