@@ -110,6 +110,24 @@ viewReposButton.addEventListener("click", function () {
 
 }); // a click event for what happens when you click the back to repo gallery button
 
+// Dynamic Search
+filterInput.addEventListener("input", function (e) {
+    const searchText = e.target.value // capture the value of the search text
+    console.log(searchText);
+    const repos = document.querySelectorAll(".repo");
+    const searchLowerText = searchText.toLowerCase(); // variable that is assigned the lowercase value of the search text
+
+    for (const repo of repos) { // Loop through each repo inside your repos element.
+        const repoLowerText = repo.innerText.toLowerCase(); // variable that is assigned it to the lowercase value of the innerText. of each repo.
+        if (repoLowerText.includes(searchLowerText)) {
+            repo.classList.remove("hide");
+        } else {
+            repo.classList.add("hide");
+        } // Check to see if the lowercase repo text includes the lowercase search text. If the repo contains the text, show it. If it doesn’t contain the text, hide the repo.
+    }
+
+
+})
 
 
 // Ask slack about fetch requests and where to find the information about the url and the endpoints since I always have to look this up.
